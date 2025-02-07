@@ -162,4 +162,4 @@ As detailed by the diagram:
 
 ## **Class diagram:**
 
-![Class Diagram](EntityRelationshipDiagram.png)
+![Class Diagram](ClassDiagram.png)
