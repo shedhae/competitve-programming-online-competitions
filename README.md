@@ -160,3 +160,6 @@ As detailed by the diagram:
 * A problem has one to many test cases, A test case associated to one problem .
 * A problem can be associated to many topics and a topic can be associated to many problems.
 
+## **Class diagram:**
+
+![Class Diagram](EntityRelationshipDiagram.png)
