@@ -146,7 +146,7 @@ The `anouncements` table includes:
 
 The below entity relationship diagram describes the relationships among the entities in the database.
 
-![ER Diagram](Entit Relation Ship Diagram.png)
+![ER Diagram]([Entit Relation Ship Diagram.png](https://github.com/MohamedBouafif/Real-time-competitive-programming-website/blob/9b56e55582bb1c4c48ebb649697cc03025d1501b/Entit%20Relation%20Ship%20Diagram.png))
 
 As detailed by the diagram:
 
