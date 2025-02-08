@@ -90,6 +90,7 @@ The `problems` table includes:
 * `ordinal` , A unique number that determines the order the problems as `INTEGER` and `NOT NULL`.
 * `time_limit` , Time limit in seconds per test data set (i.e. per single run). Should be a `NUMERIC` multiple of 0.001 and `NOT NULL`.
 * `test_data_count`, the number of test cases as `INTEGER`and `NOT NULL`.
+* `content` , the content of the problem as `TEXT` ant `NOT NULL`.  
 
 #### Test_cases
 
@@ -97,7 +98,9 @@ The `test_cases` table includes:
 
 * `id`, which specifies the unique ID for the test_case as an `INTEGER`. This column thus has the `PRIMARY KEY` constraint applied.
 * `problem_id`, which is the ID of the problem which the test case associated to as an `INTEGER`. This column thus has the `FOREIGN KEY` constraint applied, referencing the `id` column in the `problems` table to ensure data integrity.
-* `content`, which the input , output and explanation if it is necessary as `TEXT`.
+* `input`, which the input of the test as `TEXT`,`NOT NULL`.
+* `output`, the expected output of the test as `TEXT`,`NOT NULL`.
+* `explanation` ,expanation of the test if it is necessary as `TEXT`.
 
 #### Topics
 
@@ -123,6 +126,7 @@ The `submissions` table includes:
 * `time`, `timestamp` of when the submission was made, defaults to the current timestamp when a new row is inserted.
 * `language`, Identifier of the language submitted for `TEXT`, `CHECK IN(ada,c,cpp,csharp,go,haskell,java,javascript,kotlin,objectivec,pascal,php,prolog,python2,python3,ruby,rust,scala)` and `NOT NULL`.
 * `judgement`,the result of the submition `CHECK IN (in_queue,accepted,wrong_answer,time_limit_exceeded,memory_limit_exceeded,compilation_error)`, `DEFAULT in_queue`.
+*  `code` , the solution of the problem as `TEXT`, `NOT NULL`.
 
 #### Clarifications
 
