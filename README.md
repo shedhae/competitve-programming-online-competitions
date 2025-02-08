@@ -1,5 +1,4 @@
 
-my version 
 # Competitive programming contests website
 
 
