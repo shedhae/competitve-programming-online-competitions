@@ -104,7 +104,7 @@ The `test_cases` table includes:
 * `input`, which the input of the test as `TEXT`,`NOT NULL`.
 * `output`, the expected output of the test as `TEXT`,`NOT NULL`.
 * `explanation` ,expanation of the test if it is necessary as `TEXT`.
-* `hidden`, which Specifies whether this test case is displayed (1) with the problem content or hidden (0) `CHECK IN(0,1)` ,`NOT NULL` and `DEFAULT 0`
+* `hidden`, which Specifies whether this test case is displayed (1) with the problem content or hidden (0) `CHECK IN(0,1)` ,`NOT NULL` and `DEFAULT 1`
 #### Topics
 
 The `topics` table includes:
