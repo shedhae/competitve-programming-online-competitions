@@ -72,7 +72,7 @@ The `competitions` table includes:
 * `duration` ,  which specifies the competition duration in minutes as `Numeric` and `NOT NULL` constraint applied.
 * `starting_time`, which is the timestamp at which the competition start.
 * `ending_time`, which is the timestamp at which the competition end.
-* `penalty_time` , Penalty time for a wrong submission. Only relevant if scoreboard_type is pass-fail.
+* `penalty_time` , Penalty time as `INTEGER` in minutes for a wrong submission,`NOT NULL`.
 
 #### Submitters_Competitions
 
