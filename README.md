@@ -152,7 +152,7 @@ The `anouncements` table includes:
 
 The below entity relationship diagram describes the relationships among the entities in the database.
 
-![ER Diagram](diagram.jpg)
+![ER Diagram](EntityDiagram.jpg)
 
 As detailed by the diagram:
 
@@ -169,4 +169,4 @@ As detailed by the diagram:
 
 ## **Class diagram:**
 
-![Class Diagram](classdiagram.png)
+![Class Diagram](classDiag.png)
