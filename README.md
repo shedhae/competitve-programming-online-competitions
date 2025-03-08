@@ -169,4 +169,4 @@ As detailed by the diagram:
 
 ## **Class diagram:**
 
-![Class Diagram]()
+![Class Diagram](classdiagram.png)
