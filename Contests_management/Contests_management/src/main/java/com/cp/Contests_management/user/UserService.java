@@ -45,7 +45,10 @@ public class UserService {
         if (users.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No users found with name: " + userName);
         }
-        return users.stream().map(userMapper::userToUserResponseDto).collect(Collectors.toList());
+        return users
+                .stream()
+                .map(userMapper::userToUserResponseDto)
+                .collect(Collectors.toList());
     }
 
     public void deleteUserById(Integer userId){

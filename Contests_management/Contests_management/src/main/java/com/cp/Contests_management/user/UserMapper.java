@@ -17,10 +17,15 @@ public class UserMapper {
         return user;
     }
     public UserResponseDto userToUserResponseDto(User user){
+        if(user == null) {
+            throw new IllegalArgumentException("User cannot be null");
+        }
         return new UserResponseDto(
                 user.getName(),
                 user.getEmail(),
                 user.getRating()
         );
     }
+
+
 }

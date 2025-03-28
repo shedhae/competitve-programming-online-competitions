@@ -18,7 +18,7 @@ import java.util.List;
 @Entity
 /*
     this class will contain the participants
-    who will compete in certain competitions
+    who might compete in certain competitions
     a participant in a competition is a team
     that as a unique name and userCount which
     is the number of teammates as maximum = 3
