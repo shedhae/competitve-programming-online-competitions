@@ -50,6 +50,7 @@ public class UserController {
     ){
         userService.deleteUserById(userId);
     }
+
     @DeleteMapping("/users/delete/{user_name}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteUserByName(
