@@ -1,5 +1,7 @@
 package com.cp.Contests_management.user;
 
+import com.cp.Contests_management.participant.Participant;
+import com.cp.Contests_management.participant.ParticipantResponseDto;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -43,13 +45,13 @@ public class UserController {
 
     }
 
-    @DeleteMapping("/users/{user_id}")
+    /*@DeleteMapping("/users/{user_id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteUserById(
             @PathVariable("user_id") Integer userId
     ){
         userService.deleteUserById(userId);
-    }
+    }*/
 
     @DeleteMapping("/users/delete/{user_name}")
     @ResponseStatus(HttpStatus.OK)
@@ -57,6 +59,13 @@ public class UserController {
             @PathVariable("user_name") String userName
     ){
         userService.deleteUserByName(userName);
+    }
+
+    @GetMapping("/users/participants/{user_id}")
+    public List<ParticipantResponseDto> getAllUserParticipants(
+            @PathVariable("user_id") Integer userId
+    ){
+        return userService.getAllUserParticipants(userId);
     }
 
 
