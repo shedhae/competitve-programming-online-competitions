@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Contests_management/Contests_management/Contests_management.iml" filepath="$PROJECT_DIR$/Contests_management/Contests_management/Contests_management.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/competitve-programming-online-competitions.iml" filepath="$PROJECT_DIR$/.idea/competitve-programming-online-competitions.iml" />
     </modules>
   </component>
