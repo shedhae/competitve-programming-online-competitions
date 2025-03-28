@@ -15,6 +15,7 @@ import java.util.List;
 @Entity
 @Builder
 @Table(name ="app_user")
+
 public class User {
 
     @Id
