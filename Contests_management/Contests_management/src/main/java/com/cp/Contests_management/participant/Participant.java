@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import java.util.List;
 
@@ -58,6 +59,7 @@ public class Participant {
             min = 1,
             message = "A team can have at most 3 members and at least 1 member"
     )
+
     List<User> users;
 
 
