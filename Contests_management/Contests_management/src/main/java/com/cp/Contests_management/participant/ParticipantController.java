@@ -30,6 +30,23 @@ public class ParticipantController {
                 );
     }
 
+    @GetMapping("/participants/{participant_id}")
+    public ParticipantResponseDto getParticipantById(
+            @PathVariable("participant_id") Integer participantId
+    ){
+        return participantService.getParticipantById(participantId);
+    }
+    @GetMapping("/participants/{participant_name}")
+    public ParticipantResponseDto getParticipantByName(
+            @PathVariable("participant_name") String participantName
+    ){
+        return participantService.getParticipantByName(participantName);
+    }
+    @GetMapping("/participants")
+    public List<ParticipantResponseDto> getAllParticipants(){
+        return participantService.getAllParticipants();
+    }
+
 
     //Patch is used because I want only to add a new user to the list
     //instead of updating all the list elements
@@ -44,42 +61,29 @@ public class ParticipantController {
                         participantId
                 );
     }
-
-
-    @GetMapping("/participants/{participant_id}")
-    public ParticipantResponseDto getParticipantById(
-            @PathVariable("participant_id") Integer participantId
-    ){
-        return participantService.getParticipantById(participantId);
-    }
-
-    @GetMapping("/participants")
-    public List<ParticipantResponseDto> getAllParticipants(){
-        return participantService.getAllParticipants();
-    }
-
-
+    @Transactional
     @DeleteMapping("/participants/{participant_id}")
     public void deleteParticipantById(
             @PathVariable("participant_id") Integer participantId
     ){
         participantService.deleteParticipantById(participantId);
     }
+    /*
+            Delete existing user from a participant team.
 
+            If the participant team is only formed
+            by one user that who has created it by default
+            don't delete the user from the team.
+
+            If the participant team contains no users
+            Delete the participant team from the database.
+     */
     @Transactional
-    @DeleteMapping("/participants/delete-user")
+    @DeleteMapping("/participants/delete-user/{user_id}/{participant_id}")
     public ParticipantResponseDto deleteUserFromParticipant(
-            @RequestParam Integer userId,
-            @RequestBody ParticipantDto participantDto
+            @PathVariable("user_id") Integer userId,
+            @PathVariable("participant_id") Integer participantId
     ){
-        return participantService.deleteUserFromParticipants(userId, participantDto);
+        return participantService.deleteUserFromParticipants(userId,participantId);
     }
-
-
-
-
-
-
-
-
 }

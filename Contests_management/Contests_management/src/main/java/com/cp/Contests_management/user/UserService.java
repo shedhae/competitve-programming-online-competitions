@@ -84,35 +84,45 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    /*public void deleteUserById(Integer userId){
+    /*
+        After deleting the user within the database
+        we have to delete him
+        from all the participants list.
+        If the participant contains only that user
+        we have to deleted completely from the database
+    */
+    @Transactional
+    public void deleteUserById(Integer userId){
         User deletedUser = userRepository.findById(userId)
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "User already doesn't exist"));
-        userRepository.deleteById(userId);
 
-        *//*  After deleting the user within the database
-            we have to delete his name
-            from all the participants list
-            and if the participant contains only that user
-            we have to deleted completely from the database
-         *//*
         List<Participant> participantsOfDeletedUser = deletedUser.getParticipations();
+
         for(Participant participant : participantsOfDeletedUser){
-            if(participant.getUserCount()==1)
+            participant.getUsers().remove(deletedUser);
+            if(participant.getUsers().isEmpty())
                 participantRepository.delete(participant);
-            else{
-
-            }
-
         }
 
-
-    }*/
+        userRepository.delete(deletedUser);
+    }
     @Transactional
     public void deleteUserByName( String userName){
+
         if (!userRepository.existsByName(userName)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Name not found");
         }
-        this.userRepository.deleteByName(userName);
+        User deletedUser = userRepository.findByName(userName);
+
+        List<Participant> participantsOfDeletedUser = deletedUser.getParticipations();
+
+        for(Participant participant : participantsOfDeletedUser){
+            participant.getUsers().remove(deletedUser);
+            if(participant.getUsers().isEmpty())
+                participantRepository.delete(participant);
+        }
+        userRepository.delete(deletedUser);
+
     }
 
     public List<ParticipantResponseDto> getAllUserParticipants(Integer userId) {

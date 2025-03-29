@@ -45,13 +45,13 @@ public class UserController {
 
     }
 
-    /*@DeleteMapping("/users/{user_id}")
+    @DeleteMapping("/users/{user_id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteUserById(
             @PathVariable("user_id") Integer userId
     ){
         userService.deleteUserById(userId);
-    }*/
+    }
 
     @DeleteMapping("/users/delete/{user_name}")
     @ResponseStatus(HttpStatus.OK)
@@ -61,6 +61,10 @@ public class UserController {
         userService.deleteUserByName(userName);
     }
 
+    /*
+        Get all the teams that the user has
+        joined and the default participant object
+     */
     @GetMapping("/users/participants/{user_id}")
     public List<ParticipantResponseDto> getAllUserParticipants(
             @PathVariable("user_id") Integer userId
