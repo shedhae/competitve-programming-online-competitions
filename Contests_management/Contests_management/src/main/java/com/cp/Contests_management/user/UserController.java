@@ -1,6 +1,6 @@
 package com.cp.Contests_management.user;
 
-import com.cp.Contests_management.participant.Participant;
+import com.cp.Contests_management.competition.CompetitionResponseDto;
 import com.cp.Contests_management.participant.ParticipantResponseDto;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -71,6 +71,15 @@ public class UserController {
     ){
         return userService.getAllUserParticipants(userId);
     }
-
+    /*
+        Get all the competitions that a certain user
+        had created
+     */
+    @GetMapping("/users/competitions/{user_id}")
+    public List<CompetitionResponseDto> getAllUserCompetitions(
+            @PathVariable("user_id") Integer userId
+    ){
+        return userService.getAllUserCreatedCompetitions(userId);
+    }
 
 }
