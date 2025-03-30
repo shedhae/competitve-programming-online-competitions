@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class CompetitionService {
+
     private final CompetitionRepository competitionRepository;
     private final CompetitionMapper competitionMapper;
     private final UserRepository userRepository;

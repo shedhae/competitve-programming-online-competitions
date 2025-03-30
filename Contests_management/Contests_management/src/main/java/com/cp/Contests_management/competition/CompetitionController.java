@@ -38,6 +38,12 @@ public class CompetitionController {
         return competitionService.getCompetitionByName(competitionName);
     }
 
+    /*
+        Update an existing competition
+        If changing the name of the competition
+        make sure that the new name is not taken
+        by another competition
+     */
     @PutMapping("/competitions/{competition_id}")
     public CompetitionResponseDto updateCompetitionById(
             @PathVariable("competition_id") Integer competitionId,
