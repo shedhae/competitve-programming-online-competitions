@@ -1,5 +1,9 @@
 package com.cp.Contests_management.user;
 
+import com.cp.Contests_management.competition.Competition;
+import com.cp.Contests_management.competition.CompetitionMapper;
+import com.cp.Contests_management.competition.CompetitionRepository;
+import com.cp.Contests_management.competition.CompetitionResponseDto;
 import com.cp.Contests_management.participant.*;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
@@ -17,13 +21,17 @@ public class UserService {
     private final ParticipantService participantService;
     private final ParticipantMapper participantMapper;
     private final ParticipantRepository participantRepository;
+    private final CompetitionRepository competitionRepository;
+    private final CompetitionMapper competitionMapper;
 
-    public UserService(UserRepository userRepository, UserMapper userMapper, ParticipantService participantService, ParticipantMapper participantMapper, ParticipantRepository participantRepository) {
+    public UserService(UserRepository userRepository, UserMapper userMapper, ParticipantService participantService, ParticipantMapper participantMapper, ParticipantRepository participantRepository, CompetitionRepository competitionRepository, CompetitionMapper competitionMapper) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
         this.participantService = participantService;
         this.participantMapper = participantMapper;
         this.participantRepository = participantRepository;
+        this.competitionRepository = competitionRepository;
+        this.competitionMapper = competitionMapper;
     }
 
     /*
@@ -131,6 +139,19 @@ public class UserService {
 
         return user.getParticipations().stream()
                 .map(participantMapper::participantToParticipantResponseDto)
+                .collect(Collectors.toList());
+    }
+
+    public List<CompetitionResponseDto> getAllUserCreatedCompetitions(Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Creator not found"));
+
+        List<Competition> competitions = competitionRepository.getCompetitionsByUser(user);
+        if(competitions.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No competitions found");
+        return competitions
+                .stream()
+                .map(competitionMapper::competitionToResponseDto)
                 .collect(Collectors.toList());
     }
 }

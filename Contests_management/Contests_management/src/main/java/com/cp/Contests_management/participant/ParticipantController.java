@@ -1,12 +1,9 @@
 package com.cp.Contests_management.participant;
 
-import com.cp.Contests_management.user.*;
+
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-
 import java.util.List;
 
 @RestController
@@ -21,7 +18,7 @@ public class ParticipantController {
     @PostMapping("/participants")
     public ParticipantResponseDto createParticipant(
             @RequestParam Integer userId,
-            @RequestBody ParticipantDto participantDto
+            @Valid @RequestBody ParticipantDto participantDto
     ){
         return participantService
                 .createParticipant(
