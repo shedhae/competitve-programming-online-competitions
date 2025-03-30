@@ -1,6 +1,9 @@
 package com.cp.Contests_management.user;
 
+import com.cp.Contests_management.competition.Competition;
 import com.cp.Contests_management.participant.Participant;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,7 +43,11 @@ public class User {
     @ManyToMany(
         mappedBy = "users"
     )
-    List<Participant> participations;
+    private List<Participant> participations;
 
-
+    @OneToMany(
+            mappedBy = "user"
+    )
+    @JsonBackReference
+    private List<Competition> competitions;
 }

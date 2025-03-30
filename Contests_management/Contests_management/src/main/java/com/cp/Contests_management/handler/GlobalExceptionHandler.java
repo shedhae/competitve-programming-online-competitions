@@ -1,4 +1,4 @@
-package com.cp.Contests_management.Handler;
+package com.cp.Contests_management.handler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
