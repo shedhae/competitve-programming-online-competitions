@@ -96,7 +96,7 @@ public class ParticipantService {
         }
 
         if(participant.getUsers().size()==1) {
-            User user = participant.getUsers().getFirst();
+            User user = participant.getUsers().get(0);
             if(user.getName().equals(participant.getName())) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot delete default participant team");
             }
