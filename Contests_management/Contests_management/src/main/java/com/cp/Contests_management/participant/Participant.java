@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import java.util.List;
 
@@ -19,10 +20,17 @@ import java.util.List;
 /*
     this class will contain the participants
     who might compete in certain competitions
-    a participant in a competition is a team
-    that as a unique name and userCount which
-    is the number of teammates as maximum = 3
-    the userCount must be equal to users.length
+    or to submit solutions outside the scope
+    of a competition .
+
+    A participant in a competition is a team
+    that has a unique name, and it's size between
+    zero and three.
+
+    **** By default, when creating a user entity
+    a participant entity will be created with
+    the same name of the user. ******
+
 */
 public class Participant {
     @Id
@@ -51,6 +59,7 @@ public class Participant {
             min = 1,
             message = "A team can have at most 3 members and at least 1 member"
     )
+
     List<User> users;
 
 
