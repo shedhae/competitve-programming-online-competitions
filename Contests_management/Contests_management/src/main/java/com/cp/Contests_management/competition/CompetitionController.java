@@ -1,5 +1,6 @@
 package com.cp.Contests_management.competition;
 
+import com.cp.Contests_management.participant_competition.ParticipantCompetition;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,5 +54,7 @@ public class CompetitionController {
         return competitionService.updateCompetitionById(competitionId,competitionDto);
 
     }
+
+
 
 }
