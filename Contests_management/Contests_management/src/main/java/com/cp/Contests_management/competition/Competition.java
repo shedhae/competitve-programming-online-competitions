@@ -1,5 +1,6 @@
 package com.cp.Contests_management.competition;
 
+import com.cp.Contests_management.participant_competition.ParticipantCompetition;
 import com.cp.Contests_management.user.User;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -9,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -33,10 +35,21 @@ public class Competition {
 
     private float penaltyTime = 20;
 
+    /*
+        Here the user is the one
+        who created the competition
+     */
     @ManyToOne
     @JoinColumn(name = "creator_id", nullable = false)
     @JsonManagedReference
     private User user;
+
+    /*
+        List of teams/user who
+        participated in a competition
+     */
+    @OneToMany(mappedBy = "competition")
+    private List<ParticipantCompetition> participantsCompetitions;
 
 
     /*

@@ -1,6 +1,8 @@
 package com.cp.Contests_management.participant;
 
 
+import com.cp.Contests_management.participant_competition.ParticipantCompetition;
+
 import com.cp.Contests_management.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
@@ -8,7 +10,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
 
 import java.util.List;
 
@@ -59,9 +60,11 @@ public class Participant {
             min = 1,
             message = "A team can have at most 3 members and at least 1 member"
     )
+    private List<User> users;
 
-    List<User> users;
 
+    @OneToMany(mappedBy = "participant")
+    private List<ParticipantCompetition> participantsCompetitions;
 
     public int getUserCount() {
         return users.size();
