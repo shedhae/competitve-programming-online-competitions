@@ -9,7 +9,7 @@ public class ProblemMapper {
    public Problem dtoToProblem(ProblemDto problemDto){
     
     if(problemDto == null) {
-        throw new IllegalArgumentException("Competition DTO cannot be null");
+        throw new IllegalArgumentException("problemDTO cannot be null");
     }
     
     Problem problem = new Problem();
@@ -23,6 +23,10 @@ public class ProblemMapper {
 
    public ProblemResponseDto ProblemtoResponseDto(Problem problem) {
 
+    if(problem== null) {
+        throw new IllegalArgumentException("problem cannot be null");
+    }
+
     ProblemResponseDto problemResopnseDto = new ProblemResponseDto(
         problem.getTitle(),
         problem.getCompetition().getName(),
@@ -30,7 +34,10 @@ public class ProblemMapper {
         problem.getLabel(),
         problem.getContent(),
         problem.getTimelimit(),
-        problem.getMemorylimit() );
+        problem.getMemorylimit() ,
+        problem.getRating()
+        
+        );
 
 
         return problemResopnseDto;

@@ -6,11 +6,11 @@ import com.cp.Contests_management.competition.CompetitionResponseDto;
 import com.cp.Contests_management.user.User;
 import com.cp.Contests_management.user.UserRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,7 +22,6 @@ import org.springframework.stereotype.Service;
         private      CompetitionRepository competitionRepository;
         
                 
-@Autowired
      public ProblemService(ProblemRepository problemRepository, ProblemMapper problemMapper,UserRepository userRepository, CompetitionRepository  competitionRepository) 
             {   
                 this.competitionRepository = competitionRepository;
@@ -51,7 +50,7 @@ import org.springframework.stereotype.Service;
         
         Competition competiton =competitionRepository.findById(competitionId).orElse(null);
         if(competiton==null)
-            throw new IllegalArgumentException("user does not exist");
+            throw new IllegalArgumentException("competition does not exist");
         
         
         Problem problem = problemMapper.dtoToProblem(problemDto);
@@ -124,18 +123,17 @@ import org.springframework.stereotype.Service;
      
 //update problem 
 
-  public ProblemResponseDto updateCompetitionById(Integer problemId, ProblemDto problemDto) {
+  public ProblemResponseDto updateProblemById(Integer problemId, ProblemDto problemDto) {
     Problem problem = problemRepository.findById(problemId).orElse(null);
         if(problem==null)
-            throw new IllegalArgumentException("competition does not exist");
+            throw new IllegalArgumentException("problem does not exist");
 
-        if(!Objects.equals(problemDto.title(), problem.getTitle())
-                && competitionRepository.existsByName(problemDto.title()) )
+         // ensure the given name is not already in use
+        if(problemRepository.existsByName(problemDto.title()))
             throw new IllegalArgumentException("This name is already in use");
 
            problem.setTitle(problemDto.title());
            problem.setContent(problemDto.content());
-           problem.setCompetition(problemDto.competition());
            problem.setMemorylimit(problemDto.memorylimit());
            problem.setTimelimit(problemDto.timelimit());
            
@@ -151,38 +149,78 @@ public ProblemResponseDto addProblemToCompetition(Integer problemId, Integer com
         throw new IllegalArgumentException("Problem ID and Competition ID cannot be null");
     }
 
-   
-    Problem problem = problemRepository.findById(problemId)
+     Problem problem = problemRepository.findById(problemId)
             .orElseThrow(() -> new RuntimeException("Problem not found!"));
 
-   Competition competition = competitionRepository.findById(competitionId)
+     Competition competition = competitionRepository.findById(competitionId)
             .orElseThrow(() -> new RuntimeException("Competition not found!"));
 
-    problem.setCompetition(competition);
+     //ensure that the problem doesn't already exist in the competition
+   
+    if (problemRepository.findProblemByCompetition(competition).contains(problem) ) {
+        throw new IllegalArgumentException("Problem already exisit in competition");
+    }            
 
-   Problem updatedProblem = problemRepository.save(problem);
+   
 
-   return problemMapper.ProblemtoResponseDto(updatedProblem);
+     problem.setCompetition(competition);
+
+     Problem savedProblem = problemRepository.save(problem);
+
+ return problemMapper.ProblemtoResponseDto(savedProblem);
 }
 
 
 
 //delete from competition 
-public ProblemResponseDto removeProblemFromCompetition(Integer problemId) {
+public void removeProblemFromCompetition(Integer problemId) {
  
     if (problemId == null) {
         throw new IllegalArgumentException("Problem ID cannot be null");
     }
-
-   Problem problem = problemRepository.findById(problemId)
+    Problem problem = problemRepository.findById(problemId)
             .orElseThrow(() -> new RuntimeException("Problem not found!"));
 
-    problem.setCompetition(null);
+    
+    LocalDateTime now = LocalDateTime.now();
 
-    Problem updatedProblem = problemRepository.save(problem);
-    return problemMapper.ProblemtoResponseDto(updatedProblem);
+    // Ensure the current date is before the competition's start time and competition's end time
+    if (now.isAfter(problem.getCompetition().getStartTime()) ) {
+        throw new RuntimeException("Cannot remove problem: Competition has already started.");
+    }
+
+    if (now.isAfter(problem.getCompetition().getEndTime()) ) {
+        throw new RuntimeException("Cannot remove problem: Competition has already ended.");
+    }
+     
+  
+    problemRepository.deleteById(problemId);
+
 }
 
 
+
+//update rating of problem after competition 
+public ProblemResponseDto updateProblemRating(Integer problemId, Integer rating) {
+    if (problemId == null) {
+        throw new IllegalArgumentException("Problem ID cannot be null");
+    }
+    Problem problem = problemRepository.findById(problemId).orElse(null);
+        if(problem==null)
+            throw new IllegalArgumentException("problem does not exist");
+        
+     // Ensure the current date is before the competition's start time and competition's end time
+       
+     LocalDateTime now = LocalDateTime.now();
+     if (now.isAfter(problem.getCompetition().getEndTime()) ) 
+       
+        {problem.setRating(rating);
+        problemRepository.save(problem); }
+     else 
+     throw new RuntimeException("Cannot update the problem's rating unless the competition ends ");
+    
+
+    return problemMapper.ProblemtoResponseDto(problem); }
+  
 
 }

@@ -20,14 +20,7 @@ public record ProblemDto(
      float timelimit,
      
      @Max(value = 1,message = "Maximum of memoryLimit of a problem shouldn't depass 1GB ") 
-      float memorylimit ,
-      
-
-      User creator ,
-
-      Competition competition 
-      
-      
+      float memorylimit      
       
       )
  {}

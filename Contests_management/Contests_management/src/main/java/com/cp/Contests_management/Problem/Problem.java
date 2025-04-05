@@ -9,6 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,9 +35,10 @@ public class Problem {
     private String title;
 
     @Column(
-            nullable = false,
             unique = true
     )
+    @NotBlank(message = "label must not be empty")
+    @Size(min = 1, max = 1 ,message = "size of label must not exceed 1")
     private char label;
 
     @Column( nullable = false)
@@ -52,7 +55,10 @@ public class Problem {
     @JoinColumn(name = "competition_id", nullable = false)
     private Competition competition;
 
-
+    @Column( nullable = false)
      private User creator ;
+
+     @Column(nullable = true)
+    private Integer rating ;  
 
 }
